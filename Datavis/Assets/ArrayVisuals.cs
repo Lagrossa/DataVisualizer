@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class ArrayVisuals : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void OnDrawGizmos(){
+        Gizmos.DrawLine(transform.position, new Vector2(transform.position.x + 1, transform.position.y));
     }
 }
