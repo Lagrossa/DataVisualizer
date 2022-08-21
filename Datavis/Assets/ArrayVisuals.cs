@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ArrayVisuals : MonoBehaviour
 {
-    void OnDrawGizmos(){
+    void OnDrawGizmos()
+    {
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x + 1, transform.position.y));
     }
 }
