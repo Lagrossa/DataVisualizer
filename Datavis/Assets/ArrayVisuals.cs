@@ -14,6 +14,7 @@ public class ArrayVisuals : MonoBehaviour
 
         for(int x = 0; x < myArray.Length; x++)
         {
+            Gizmos.DrawLine(new Vector2(currentX, currentY + 1), new Vector2(currentX, currentY));
             Gizmos.DrawLine(new Vector2(currentX, currentY), new Vector2(currentX + 1, currentY));
             Gizmos.DrawLine(new Vector2(currentX + 1, currentY), new Vector2(currentX + 1, currentY + 1));
             Gizmos.DrawLine(new Vector2(currentX + 1, currentY + 1), new Vector2(currentX, currentY + 1));
