@@ -67,18 +67,20 @@ public class ArrayVisuals : MonoBehaviour
 
     }
 
-    void checkSorted()
+    bool checkSorted()
     {
-        for(int x = 1; x < myArray.Length; x++)
+        bool sorted = false;
+        for(int x = 0; x < myArray.Length-1; x++)
         {
-            if (myArray[x] > myArray[x - 1])
+            if (myArray[x + 1] > myArray[x])
             {
-                isSorted = false;
+                sorted = false;
             }
             else
             {
-                isSorted = true;
+                sorted = true;
             }
         }
+        return sorted;
     }
 }
