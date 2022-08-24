@@ -54,7 +54,7 @@ public class ArrayVisuals : MonoBehaviour
         //FOR 8/24/2022
         //ADD 2D Array Compatibility
         //Implement Sorting Algorithms and buttons
-        checkSorted();
+        isSorted = checkSorted();
     }
 #endif
 
@@ -73,6 +73,7 @@ public class ArrayVisuals : MonoBehaviour
         {
             if (myArray[x] > myArray[x + 1])
             {
+                //Debug.Log($"{myArray[x]} is val 1 {myArray[x + 1]} is val 2. Should return false");
                 return false;
             }
         }
