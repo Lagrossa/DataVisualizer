@@ -34,8 +34,10 @@ public class ArrayVisuals : MonoBehaviour
             Gizmos.DrawSphere(center, radius);
             currentX++;
         }
-      
 
+        //FOR 8/24/2022
+        //ADD 2D Array Compatibility
+        //Implement Sorting Algorithms and buttons
     }
 #endif
 }
