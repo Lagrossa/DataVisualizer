@@ -76,7 +76,18 @@ public class ArrayVisuals : MonoBehaviour
 
     void bubSort()
     {
-
+        for(int x = 0; x < myArray.Length-1; x++)
+        {
+            if (!isSorted)
+            {
+                if (myArray[x] > myArray[x + 1])
+                {
+                    int hold = myArray[x + 1];
+                    myArray[x + 1] = myArray[x];
+                    myArray[x] = hold;
+                }
+            }
+        }
 
     }
     bool checkSorted()
