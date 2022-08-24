@@ -67,6 +67,7 @@ public class ArrayVisuals : MonoBehaviour
 
         //Always check if the array is sorted.
         isSorted = checkSorted();
+        UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
         
     }
 #endif
