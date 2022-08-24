@@ -12,6 +12,8 @@ public class ArrayVisuals : MonoBehaviour
     public int scalar; // Scales centers to DU.
     public float offsetX = 0;
     public float offsetY = 0;
+    public bool randomize;
+    public bool binarySort;
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
@@ -35,9 +37,22 @@ public class ArrayVisuals : MonoBehaviour
             currentX++;
         }
 
+        if (randomize)
+        {
+            for (int x = 0; x < myArray.Length; x++)
+            {
+                int newVal = Random.Range(0, 9);
+                Debug.Log(newVal);
+                myArray[x] = (newVal);
+            }
+        }
         //FOR 8/24/2022
         //ADD 2D Array Compatibility
         //Implement Sorting Algorithms and buttons
     }
 #endif
+
+    void Update()
+    {
+    }
 }
