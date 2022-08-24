@@ -15,11 +15,14 @@ public class ArrayVisuals : MonoBehaviour
 
         for(int x = 0; x < myArray.Length; x++)
         {
+            Gizmos.color = Color.gray;
             Gizmos.DrawLine(new Vector2(currentX, currentY + 1), new Vector2(currentX, currentY));
             Gizmos.DrawLine(new Vector2(currentX, currentY), new Vector2(currentX + 1, currentY));
             Gizmos.DrawLine(new Vector2(currentX + 1, currentY), new Vector2(currentX + 1, currentY + 1));
             Gizmos.DrawLine(new Vector2(currentX + 1, currentY + 1), new Vector2(currentX, currentY + 1));
-            Gizmos.DrawSphere(new Vector2(currentX + 1 - currentX, currentY + 1 - currentY), radius);
+            Gizmos.color = Color.red;
+            Vector2 center = new Vector2(((currentX + 1) + currentX) / 2f, ((currentY + 1) + currentY)) / 2f;
+        Gizmos.DrawSphere(center, radius);
             currentX++;
         }
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x + width, transform.position.y));
