@@ -24,7 +24,7 @@ public class ArrayVisuals : MonoBehaviour
         int currentY = 0;
         for(int x = 0; x < myArray.Length; x++)
         {
-            Gizmos.color = Color.gray;
+            Gizmos.color = Color.grey;
             Gizmos.DrawLine(new Vector2(currentX, currentY + DU), new Vector2(currentX, currentY));
             Gizmos.DrawLine(new Vector2(currentX, currentY), new Vector2(currentX + DU, currentY));
             Gizmos.DrawLine(new Vector2(currentX + DU, currentY), new Vector2(currentX + DU, currentY + DU));
@@ -34,7 +34,13 @@ public class ArrayVisuals : MonoBehaviour
             center = new Vector2(center.x + offsetX, center.y + offsetY);
             //Debug.Log($"{center} current center should be" + "(" + (currentX + DU + currentX) / 2f + ")");
             Rect position = new Rect(center, new Vector2(1,1));
-            Handles.Label(center, new GUIContent(myArray[x].ToString()));
+            GUIStyle style = new GUIStyle();
+            style.normal.textColor = isSorted switch
+            {
+                true => Color.green,
+                false => Color.red,
+            };
+            Handles.Label(center, new GUIContent(myArray[x].ToString()), style);
             Gizmos.DrawSphere(center, radius);
             currentX++;
         }
@@ -62,6 +68,7 @@ public class ArrayVisuals : MonoBehaviour
 
         //Always check if the array is sorted.
         isSorted = checkSorted();
+        
     }
 #endif
 
