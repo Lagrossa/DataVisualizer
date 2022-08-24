@@ -12,6 +12,7 @@ public class ArrayVisuals : MonoBehaviour
     public int scalar; // Scales centers to DU.
     public float offsetX = 0;
     public float offsetY = 0;
+    public bool isSorted;
     public bool randomize;
     public bool binarySort;
 #if UNITY_EDITOR
@@ -42,17 +43,42 @@ public class ArrayVisuals : MonoBehaviour
             for (int x = 0; x < myArray.Length; x++)
             {
                 int newVal = Random.Range(0, 9);
-                Debug.Log(newVal);
                 myArray[x] = (newVal);
             }
+        }
+
+        if (binarySort)
+        {
+            binSort();
         }
         //FOR 8/24/2022
         //ADD 2D Array Compatibility
         //Implement Sorting Algorithms and buttons
+        checkSorted();
     }
 #endif
 
     void Update()
     {
+    }
+
+    void binSort()
+    {
+
+    }
+
+    void checkSorted()
+    {
+        for(int x = 1; x < myArray.Length; x++)
+        {
+            if (myArray[x] > myArray[x - 1])
+            {
+                isSorted = false;
+            }
+            else
+            {
+                isSorted = true;
+            }
+        }
     }
 }
