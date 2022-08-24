@@ -15,6 +15,7 @@ public class ArrayVisuals : MonoBehaviour
     public bool isSorted;
     public bool randomize;
     public bool binarySort;
+    public bool bubbleSort;
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
@@ -51,9 +52,15 @@ public class ArrayVisuals : MonoBehaviour
         {
             binSort();
         }
+        if (bubbleSort)
+        {
+            bubSort();
+        }
         //FOR 8/24/2022
         //ADD 2D Array Compatibility
         //Implement Sorting Algorithms and buttons
+
+        //Always check if the array is sorted.
         isSorted = checkSorted();
     }
 #endif
@@ -67,6 +74,11 @@ public class ArrayVisuals : MonoBehaviour
 
     }
 
+    void bubSort()
+    {
+
+
+    }
     bool checkSorted()
     {
         for (int x = 0; x < myArray.Length - 1; x++)
