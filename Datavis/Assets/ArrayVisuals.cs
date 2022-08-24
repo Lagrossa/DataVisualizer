@@ -7,7 +7,7 @@ using UnityEditor;
 public class ArrayVisuals : MonoBehaviour
 {
     public float radius = .015f;
-    public int[] myArray = { 9,7,4,3,6,5,2,1,8,0 };
+    public int[] myArray = new int[10]; //size
     public int DU; // Distance Unit
     public int scalar; // Scales centers to DU.
     public float offsetX = 0;
@@ -33,7 +33,6 @@ public class ArrayVisuals : MonoBehaviour
             Vector2 center = new Vector2((currentX + DU + currentX), ((currentY + DU) + currentY)) / 2f; // Center of each square (???)
             center = new Vector2(center.x + offsetX, center.y + offsetY);
             //Debug.Log($"{center} current center should be" + "(" + (currentX + DU + currentX) / 2f + ")");
-            Rect position = new Rect(center, new Vector2(1,1));
             GUIStyle style = new GUIStyle();
             style.normal.textColor = isSorted switch
             {
@@ -49,7 +48,7 @@ public class ArrayVisuals : MonoBehaviour
         {
             for (int x = 0; x < myArray.Length; x++)
             {
-                int newVal = Random.Range(0, 9);
+                int newVal = Random.Range(0, 10);
                 myArray[x] = (newVal);
             }
         }
@@ -83,6 +82,8 @@ public class ArrayVisuals : MonoBehaviour
 
     void bubSort()
     {
+        float sortTime;
+        float startTime = Time.time;
         for(int x = 0; x < myArray.Length-1; x++)
         {
             if (!isSorted)
@@ -95,7 +96,8 @@ public class ArrayVisuals : MonoBehaviour
                 }
             }
         }
-
+        sortTime = Time.time - startTime;
+        Debug.Log($"Time to sort {sortTime}");
     }
     bool checkSorted()
     {
