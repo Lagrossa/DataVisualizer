@@ -6,6 +6,7 @@ using UnityEditor;
 #endif
 public class ArrayVisuals : MonoBehaviour
 {
+    //  Base
     public float radius = .015f;
     public int[,] myArray = new int[50,50]; //  size
     public int DU; // Distance Unit
@@ -14,6 +15,11 @@ public class ArrayVisuals : MonoBehaviour
     public float offsetY = 0;
     public bool isSorted;
     public bool randomize;
+    //  Customization
+    public int[,] index;
+    public Color32 color;
+    public bool setIndexColor;
+
     // Sorts
     public bool binarySort;
     //      Bubble Sort
@@ -33,8 +39,13 @@ public class ArrayVisuals : MonoBehaviour
 
                 //2D array stuff (later)
 
-
-                Gizmos.color = Color.grey;
+                if (new int[x, y] != index)
+                {
+                    Gizmos.color = Color.grey;
+                }
+                else {
+                    Gizmos.color = color;
+                }
                 Gizmos.DrawLine(new Vector2(x, y + DU), new Vector2(x, y));
                 Gizmos.DrawLine(new Vector2(x, y), new Vector2(x + DU, y));
                 Gizmos.DrawLine(new Vector2(x + DU, y), new Vector2(x + DU, y + DU));
@@ -95,6 +106,11 @@ public class ArrayVisuals : MonoBehaviour
     }
 
     void binSort()
+    {
+
+    }
+
+    void setIndexColor()
     {
 
     }
