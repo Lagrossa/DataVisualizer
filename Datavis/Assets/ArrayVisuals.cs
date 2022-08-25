@@ -50,16 +50,19 @@ public class ArrayVisuals : MonoBehaviour
                 center = new Vector2(center.x + offsetX, center.y + offsetY);
                 //Debug.Log($"{center} current center should be" + "(" + (currentX + DU + currentX) / 2f + ")");
                 GUIStyle style = new GUIStyle();
-                style.normal.textColor = isSorted switch
+                if(indexr0 == x && indexr1 == y)
                 {
-                    true => Color.green,
-                    false => Color.red,
-                };
+                    style.normal.textColor = color;
+                }
+                else
+                {
+                    style.normal.textColor = isSorted switch
+                    {
+                        true => Color.green,
+                        false => Color.red,
+                    };
+                }
                 Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
-                //  DRAW OVER SELECTED
-                GUIStyle selectionStyle = new GUIStyle();
-                selectionStyle.normal.textColor = Color.yellow;
-                Handles.Label(center, new GUIContent(myArray[indexr0, indexr1].ToString()), style);
                 Gizmos.DrawSphere(center, radius);
             }
         }
