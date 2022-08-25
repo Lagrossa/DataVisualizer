@@ -24,9 +24,9 @@ public class ArrayVisuals : MonoBehaviour
     public bool setIndexColor;
 
     //  MOUSE STUFF
-    Vector3 mousePos;
+    Vector2 mousePos;
     float closestPosMag;
-    Vector3 closestVec;
+    Vector2 closestVec;
 
     // Sorts
     public bool binarySort;
@@ -40,7 +40,7 @@ public class ArrayVisuals : MonoBehaviour
 
     //Data Handler xd
     // Should use a hashmap to map each style to a Vector3 position.
-    public Dictionary<Vector3, GUIStyle> styleToCoord; // <GUIStyle, Vector3> should be the <T> 2500 styles per frame :)
+    public Dictionary<Vector2, GUIStyle> styleToCoord = new Dictionary<Vector2, GUIStyle>(); // <GUIStyle, Vector3> should be the <T> 2500 styles per frame :)
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
@@ -76,9 +76,9 @@ public class ArrayVisuals : MonoBehaviour
                         false => Color.red,
                     };
                 }
-                styleToCoord.Add(center, style);
                 Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
                 Gizmos.DrawSphere(center, radius);
+                styleToCoord.Add(center, style);
             }
         }
 
@@ -114,11 +114,11 @@ public class ArrayVisuals : MonoBehaviour
         //   Always check if the array is sorted. //
         isSorted = checkSorted();
 
-        Vector3[] keys = new Vector3[styleToCoord.Keys.Count];
-        /*styleToCoord.Keys.CopyTo(keys, 0);
+        Vector2[] keys = new Vector2[styleToCoord.Keys.Count];
+        styleToCoord.Keys.CopyTo(keys, 0);
         for (int x = 0; x < keys.Length; x++)
         {
-            Vector3 currVec = mousePos - keys[x];
+            Vector2 currVec = mousePos - keys[x];
             if (currVec.magnitude < closestPosMag)
             {
                 closestPosMag = currVec.magnitude;
@@ -127,7 +127,7 @@ public class ArrayVisuals : MonoBehaviour
         }
         GUIStyle value = styleToCoord[closestVec];
         value.normal.textColor = Color.blue;
-        styleToCoord.Clear();*/
+        styleToCoord.Clear();
         UnityEditorInternal.InternalEditorUtility.RepaintAllViews(); // Repaint the view every frame.
         
     }
