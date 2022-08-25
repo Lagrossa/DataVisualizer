@@ -80,7 +80,7 @@ public class ArrayVisuals : MonoBehaviour
                 }
                 Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
                 Gizmos.DrawSphere(center, radius);
-                styleToCoord.TryAdd(center, style);
+                styleToCoord.Add(center, style);
                 
             }
         }
@@ -123,7 +123,6 @@ public class ArrayVisuals : MonoBehaviour
         for (int x = 0; x < keys.Length; x++)
         {
             Vector2 currVec = keys[x];
-            Debug.Log($"Currvec {currVec}");
             if ((currVec - (Vector2)mouse.transform.position).magnitude < closestPosMag)
             {
                 closestPosMag = currVec.magnitude;
