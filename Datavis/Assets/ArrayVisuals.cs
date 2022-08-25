@@ -18,7 +18,7 @@ public class ArrayVisuals : MonoBehaviour
     //  Customization
     public int indexr0; // Index rank 0        
     public int indexr1; // Index rank 1
-    public Color color;
+    public Color color; //TO-DO: Lerp the color values such that the selected variable cycles through all RGB possiblities :D
     public bool setIndexColor;
 
     // Sorts
