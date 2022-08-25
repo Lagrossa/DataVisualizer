@@ -25,7 +25,7 @@ public class ArrayVisuals : MonoBehaviour
 
     //  MOUSE STUFF
     Vector3 mousePos;
-    float closestPosMag = new Vector3(100, 100, 0).magnitude;
+    float closestPosMag;
     Vector3 closestVec;
 
     // Sorts
@@ -40,28 +40,13 @@ public class ArrayVisuals : MonoBehaviour
 
     //Data Handler xd
     // Should use a hashmap to map each style to a Vector3 position.
-    Dictionary<Vector3, GUIStyle> styleToCoord; // <GUIStyle, Vector3> should be the <T> 2500 styles per frame :)
+    public Dictionary<Vector3, GUIStyle> styleToCoord; // <GUIStyle, Vector3> should be the <T> 2500 styles per frame :)
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        mousePos = Input.mousePosition;
         /*Get the position value for each key, iterate through all 2500 to check which one is the closest
         and then draw a line from the mouse position to that value's 'center'.
         */
-        Vector3[] keys = new Vector3[styleToCoord.Keys.Count];
-        styleToCoord.Keys.CopyTo(keys, 0);
-        for (int x = 0; x < keys.Length; x++)
-        {
-            Vector3 currVec = mousePos - keys[x];
-            if (currVec.magnitude < closestPosMag)
-            {
-                closestPosMag = currVec.magnitude;
-                closestVec = currVec;
-            }
-        }
-        GUIStyle value = styleToCoord[closestVec];
-        value.normal.textColor = Color.blue;
-        styleToCoord.Clear();
         for (int y = 0; y < myArray.GetLength(1); y++)
         {
             for (int x = 0; x < myArray.GetLength(0); x++)
@@ -128,6 +113,21 @@ public class ArrayVisuals : MonoBehaviour
 
         //   Always check if the array is sorted. //
         isSorted = checkSorted();
+
+        Vector3[] keys = new Vector3[styleToCoord.Keys.Count];
+        /*styleToCoord.Keys.CopyTo(keys, 0);
+        for (int x = 0; x < keys.Length; x++)
+        {
+            Vector3 currVec = mousePos - keys[x];
+            if (currVec.magnitude < closestPosMag)
+            {
+                closestPosMag = currVec.magnitude;
+                closestVec = currVec;
+            }
+        }
+        GUIStyle value = styleToCoord[closestVec];
+        value.normal.textColor = Color.blue;
+        styleToCoord.Clear();*/
         UnityEditorInternal.InternalEditorUtility.RepaintAllViews(); // Repaint the view every frame.
         
     }
@@ -135,6 +135,7 @@ public class ArrayVisuals : MonoBehaviour
 
     void Update()
     {
+        mousePos = Input.mousePosition;
     }
 
     void binSort()
