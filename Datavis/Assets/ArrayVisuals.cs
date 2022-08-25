@@ -25,9 +25,10 @@ public class ArrayVisuals : MonoBehaviour
 
     //  MOUSE STUFF
     Vector2 mousePos;
-    float closestPosMag;
-    Vector2 closestVec;
-
+    public float closestPosMag;
+    public Vector2 closestVec;
+    public GameObject mouse;
+    public Vector2 testCurrVec;
     // Sorts
     public bool binarySort;
     //      Bubble Sort
@@ -44,6 +45,7 @@ public class ArrayVisuals : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
+        styleToCoord.Clear();
         /*Get the position value for each key, iterate through all 2500 to check which one is the closest
         and then draw a line from the mouse position to that value's 'center'.
         */
@@ -78,7 +80,8 @@ public class ArrayVisuals : MonoBehaviour
                 }
                 Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
                 Gizmos.DrawSphere(center, radius);
-                styleToCoord.Add(center, style);
+                styleToCoord.TryAdd(center, style);
+                
             }
         }
 
@@ -113,21 +116,10 @@ public class ArrayVisuals : MonoBehaviour
 
         //   Always check if the array is sorted. //
         isSorted = checkSorted();
-
-        Vector2[] keys = new Vector2[styleToCoord.Keys.Count];
-        styleToCoord.Keys.CopyTo(keys, 0);
-        for (int x = 0; x < keys.Length; x++)
-        {
-            Vector2 currVec = mousePos - keys[x];
-            if (currVec.magnitude < closestPosMag)
-            {
-                closestPosMag = currVec.magnitude;
-                closestVec = currVec;
-            }
-        }
         GUIStyle value = styleToCoord[closestVec];
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(closestVec, mouse.transform.position);
         value.normal.textColor = Color.blue;
-        styleToCoord.Clear();
         UnityEditorInternal.InternalEditorUtility.RepaintAllViews(); // Repaint the view every frame.
         
     }
@@ -135,6 +127,20 @@ public class ArrayVisuals : MonoBehaviour
 
     void Update()
     {
+        Vector2[] keys = new Vector2[styleToCoord.Keys.Count];
+        styleToCoord.Keys.CopyTo(keys, 0);
+        for (int x = 0; x < keys.Length; x++)
+        {
+            Vector2 currVec = keys[x];
+            Debug.Log($"Currvec {currVec}");
+            testCurrVec = currVec;
+            if ((currVec - (Vector2)mouse.transform.position).magnitude < closestPosMag)
+            {
+                closestPosMag = currVec.magnitude;
+                closestVec = currVec;
+            }
+        }
+
         mousePos = Input.mousePosition;
     }
 
