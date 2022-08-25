@@ -16,8 +16,9 @@ public class ArrayVisuals : MonoBehaviour
     public bool isSorted;
     public bool randomize;
     //  Customization
-    public int[,] index;
-    public Color32 color;
+    public int indexr0; // Index rank 0        
+    public int indexr1; // Index rank 1
+    public Color color;
     public bool setIndexColor;
 
     // Sorts
@@ -39,13 +40,7 @@ public class ArrayVisuals : MonoBehaviour
 
                 //2D array stuff (later)
 
-                if (new int[x, y] != index)
-                {
-                    Gizmos.color = Color.grey;
-                }
-                else {
-                    Gizmos.color = color;
-                }
+                Gizmos.color = Color.grey;
                 Gizmos.DrawLine(new Vector2(x, y + DU), new Vector2(x, y));
                 Gizmos.DrawLine(new Vector2(x, y), new Vector2(x + DU, y));
                 Gizmos.DrawLine(new Vector2(x + DU, y), new Vector2(x + DU, y + DU));
@@ -61,6 +56,10 @@ public class ArrayVisuals : MonoBehaviour
                     false => Color.red,
                 };
                 Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
+                //  DRAW OVER SELECTED
+                GUIStyle selectionStyle = new GUIStyle();
+                selectionStyle.normal.textColor = Color.yellow;
+                Handles.Label(center, new GUIContent(myArray[indexr0, indexr1].ToString()), style);
                 Gizmos.DrawSphere(center, radius);
             }
         }
