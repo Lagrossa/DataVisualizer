@@ -110,10 +110,6 @@ public class ArrayVisuals : MonoBehaviour
 
     }
 
-    void setIndexColor()
-    {
-
-    }
 
     void bubSort() //Should recurse into itself at the end of its cycle
     {
