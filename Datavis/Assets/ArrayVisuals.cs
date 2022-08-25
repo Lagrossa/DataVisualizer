@@ -16,7 +16,9 @@ public class ArrayVisuals : MonoBehaviour
     public bool isSorted;
     public bool randomize;
     //  Customization
-    public int indexr0; // Index rank 0        
+    [Range(0,49)]
+    public int indexr0; // Index rank 0
+    [Range(0,49)]
     public int indexr1; // Index rank 1
     public Color color; //TO-DO: Lerp the color values such that the selected variable cycles through all RGB possiblities :D
     public bool setIndexColor;
@@ -30,9 +32,17 @@ public class ArrayVisuals : MonoBehaviour
     public float bubbleFinishTime;
     public float bubbleTimeElapsed;
 
+
+    //Data Handler xd
+    // Should use a hashmap to map each style to a Vector3 position.
+
+
+    public List<GUIStyle> styles; // 2500 styles per frame :)
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
+        Gizmos.DrawLine(Input.mousePosition, styles[0].);
+        styles.Clear();
         for (int y = 0; y < myArray.GetLength(1); y++)
         {
             for (int x = 0; x < myArray.GetLength(0); x++)
@@ -62,6 +72,7 @@ public class ArrayVisuals : MonoBehaviour
                         false => Color.red,
                     };
                 }
+                styles.Add(style);
                 Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
                 Gizmos.DrawSphere(center, radius);
             }
