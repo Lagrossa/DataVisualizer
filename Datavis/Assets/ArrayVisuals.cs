@@ -7,15 +7,22 @@ using UnityEditor;
 public class ArrayVisuals : MonoBehaviour
 {
     public float radius = .015f;
-    public int[] myArray = new int[10]; //size
+    public int[] myArray = new int[10]; //  size
     public int DU; // Distance Unit
     public int scalar; // Scales centers to DU.
     public float offsetX = 0;
     public float offsetY = 0;
     public bool isSorted;
     public bool randomize;
+    // Sorts
     public bool binarySort;
+    //      Bubble Sort
     public bool bubbleSort;
+    public bool bubbleFirstPass = true;
+    public float bubbleStartTime;
+    public float bubbleFinishTime;
+    public float bubbleTimeElapsed;
+
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
@@ -59,15 +66,20 @@ public class ArrayVisuals : MonoBehaviour
         }
         if (bubbleSort)
         {
+            if (bubbleFirstPass)
+            {
+                bubbleStartTime = Time.time;
+                bubbleFirstPass = false;
+            }
             bubSort();
         }
-        //FOR 8/24/2022
-        //ADD 2D Array Compatibility
-        //Implement Sorting Algorithms and buttons
+        //  FOR 8/24/2022
+        //  ADD 2D Array Compatibility
+        //  Implement Sorting Algorithms and buttons
 
-        //Always check if the array is sorted.
+        //   Always check if the array is sorted. //
         isSorted = checkSorted();
-        UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+        UnityEditorInternal.InternalEditorUtility.RepaintAllViews(); // Repaint the view every frame.
         
     }
 #endif
@@ -81,13 +93,11 @@ public class ArrayVisuals : MonoBehaviour
 
     }
 
-    void bubSort()
+    void bubSort() //Should recurse into itself at the end of its cycle
     {
-        float sortTime;
-        float startTime = Time.time;
-        for(int x = 0; x < myArray.Length-1; x++)
+        if (!isSorted)
         {
-            if (!isSorted)
+            for (int x = 0; x < myArray.Length - 1; x++)
             {
                 if (myArray[x] > myArray[x + 1])
                 {
@@ -97,8 +107,14 @@ public class ArrayVisuals : MonoBehaviour
                 }
             }
         }
-        sortTime = Time.time - startTime;
-        Debug.Log($"Time to sort {sortTime}");
+        else if (isSorted)
+        {
+            Debug.Log("Reaches end of bubble sort --------------");
+            bubbleFinishTime = Time.time;
+            bubbleTimeElapsed = bubbleFinishTime - bubbleStartTime;
+            Debug.Log($"Time to sort {bubbleTimeElapsed}");
+            bubbleSort = false;
+        }
     }
     bool checkSorted()
     {
