@@ -35,14 +35,16 @@ public class ArrayVisuals : MonoBehaviour
 
     //Data Handler xd
     // Should use a hashmap to map each style to a Vector3 position.
-
-
     public List<GUIStyle> styles; // 2500 styles per frame :)
+    Hashtable styleToCoord; // <GUIStyle, Vector3> should be the <T>
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        Gizmos.DrawLine(Input.mousePosition, styles[0].);
-        styles.Clear();
+        /*Get the position value for each key, iterate through all 2500 to check which one is the closest
+        and then draw a line from the mouse position to that value's 'center'.
+        */
+        Gizmos.DrawLine(Input.mousePosition, styleToCoord[1]);
+        styleToCoord.Clear();
         for (int y = 0; y < myArray.GetLength(1); y++)
         {
             for (int x = 0; x < myArray.GetLength(0); x++)
