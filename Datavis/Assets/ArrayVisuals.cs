@@ -7,7 +7,7 @@ using UnityEditor;
 public class ArrayVisuals : MonoBehaviour
 {
     public float radius = .015f;
-    public int[,] myArray = new int[10,10]; //  size
+    public int[,] myArray = new int[50,50]; //  size
     public int DU; // Distance Unit
     public int scalar; // Scales centers to DU.
     public float offsetX = 0;
