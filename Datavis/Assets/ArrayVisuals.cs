@@ -7,7 +7,7 @@ using UnityEditor;
 public class ArrayVisuals : MonoBehaviour
 {
     public float radius = .015f;
-    public int[] myArray = new int[10]; //  size
+    public int[,] myArray = new int[10,10]; //  size
     public int DU; // Distance Unit
     public int scalar; // Scales centers to DU.
     public float offsetX = 0;
@@ -26,37 +26,43 @@ public class ArrayVisuals : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        int width = myArray.Length;
-        int currentX = 0;
-        int currentY = 0;
-        for(int x = 0; x < myArray.Length; x++)
+        for (int y = 0; y < myArray.GetLength(1); y++)
         {
-            Gizmos.color = Color.grey;
-            Gizmos.DrawLine(new Vector2(currentX, currentY + DU), new Vector2(currentX, currentY));
-            Gizmos.DrawLine(new Vector2(currentX, currentY), new Vector2(currentX + DU, currentY));
-            Gizmos.DrawLine(new Vector2(currentX + DU, currentY), new Vector2(currentX + DU, currentY + DU));
-            Gizmos.DrawLine(new Vector2(currentX + DU, currentY + DU), new Vector2(currentX, currentY + DU));
-            Gizmos.color = Color.red;
-            Vector2 center = new Vector2((currentX + DU + currentX), ((currentY + DU) + currentY)) / 2f; // Center of each square (???)
-            center = new Vector2(center.x + offsetX, center.y + offsetY);
-            //Debug.Log($"{center} current center should be" + "(" + (currentX + DU + currentX) / 2f + ")");
-            GUIStyle style = new GUIStyle();
-            style.normal.textColor = isSorted switch
+            for (int x = 0; x < myArray.GetLength(0); x++)
             {
-                true => Color.green,
-                false => Color.red,
-            };
-            Handles.Label(center, new GUIContent(myArray[x].ToString()), style);
-            Gizmos.DrawSphere(center, radius);
-            currentX++;
+
+                //2D array stuff (later)
+
+
+                Gizmos.color = Color.grey;
+                Gizmos.DrawLine(new Vector2(x, y + DU), new Vector2(x, y));
+                Gizmos.DrawLine(new Vector2(x, y), new Vector2(x + DU, y));
+                Gizmos.DrawLine(new Vector2(x + DU, y), new Vector2(x + DU, y + DU));
+                Gizmos.DrawLine(new Vector2(x + DU, y + DU), new Vector2(x, y + DU));
+                Gizmos.color = Color.red;
+                Vector2 center = new Vector2((x + DU + x), ((y + DU) + y)) / 2f; // Center of each square (???)
+                center = new Vector2(center.x + offsetX, center.y + offsetY);
+                //Debug.Log($"{center} current center should be" + "(" + (currentX + DU + currentX) / 2f + ")");
+                GUIStyle style = new GUIStyle();
+                style.normal.textColor = isSorted switch
+                {
+                    true => Color.green,
+                    false => Color.red,
+                };
+                Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
+                Gizmos.DrawSphere(center, radius);
+            }
         }
 
         if (randomize)
         {
-            for (int x = 0; x < myArray.Length; x++)
+            for (int y = 0; y < myArray.GetLength(1); y++)
             {
-                int newVal = Random.Range(0, 10);
-                myArray[x] = (newVal);
+                for (int x = 0; x < myArray.GetLength(0); x++)
+                {
+                    int newVal = Random.Range(0, 10);
+                    myArray[x,y] = (newVal);
+                }
             }
         }
 
@@ -97,13 +103,16 @@ public class ArrayVisuals : MonoBehaviour
     {
         if (!isSorted)
         {
-            for (int x = 0; x < myArray.Length - 1; x++)
+            for (int y = 0; y < myArray.GetLength(1); y++)
             {
-                if (myArray[x] > myArray[x + 1])
+                for (int x = 0; x < myArray.GetLength(0) - 1; x++)
                 {
-                    int hold = myArray[x + 1];
-                    myArray[x + 1] = myArray[x];
-                    myArray[x] = hold;
+                    if(myArray[x,y] > myArray[x + 1,y])
+                    {
+                        int hold = myArray[x + 1,y];
+                        myArray[x + 1,y] = myArray[x,y];
+                        myArray[x,y] = hold;
+                    }
                 }
             }
         }
@@ -118,12 +127,15 @@ public class ArrayVisuals : MonoBehaviour
     }
     bool checkSorted()
     {
-        for (int x = 0; x < myArray.Length - 1; x++)
+        for (int y = 0; y < myArray.GetLength(1); y++)
         {
-            if (myArray[x] > myArray[x + 1])
+            for (int x = 0; x < myArray.GetLength(0) - 1; x++)
             {
-                //Debug.Log($"{myArray[x]} is val 1 {myArray[x + 1]} is val 2. Should return false");
-                return false;
+                if (myArray[x,y] > myArray[x + 1,y])
+                {
+                    //Debug.Log($"{myArray[x]} is val 1 {myArray[x + 1]} is val 2. Should return false");
+                    return false;
+                }
             }
         }
             return true;
