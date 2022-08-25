@@ -23,6 +23,11 @@ public class ArrayVisuals : MonoBehaviour
     public Color color; //TO-DO: Lerp the color values such that the selected variable cycles through all RGB possiblities :D
     public bool setIndexColor;
 
+    //  MOUSE STUFF
+    Vector3 mousePos;
+    float closestPosMag = new Vector3(100, 100, 0).magnitude;
+    Vector3 closestVec;
+
     // Sorts
     public bool binarySort;
     //      Bubble Sort
@@ -35,15 +40,27 @@ public class ArrayVisuals : MonoBehaviour
 
     //Data Handler xd
     // Should use a hashmap to map each style to a Vector3 position.
-    public List<GUIStyle> styles; // 2500 styles per frame :)
-    Hashtable styleToCoord; // <GUIStyle, Vector3> should be the <T>
+    Dictionary<Vector3, GUIStyle> styleToCoord; // <GUIStyle, Vector3> should be the <T> 2500 styles per frame :)
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
+        mousePos = Input.mousePosition;
         /*Get the position value for each key, iterate through all 2500 to check which one is the closest
         and then draw a line from the mouse position to that value's 'center'.
         */
-        Gizmos.DrawLine(Input.mousePosition, styleToCoord[1]);
+        Vector3[] keys = new Vector3[styleToCoord.Keys.Count];
+        styleToCoord.Keys.CopyTo(keys, 0);
+        for (int x = 0; x < keys.Length; x++)
+        {
+            Vector3 currVec = mousePos - keys[x];
+            if (currVec.magnitude < closestPosMag)
+            {
+                closestPosMag = currVec.magnitude;
+                closestVec = currVec;
+            }
+        }
+        GUIStyle value = styleToCoord[closestVec];
+        value.normal.textColor = Color.blue;
         styleToCoord.Clear();
         for (int y = 0; y < myArray.GetLength(1); y++)
         {
@@ -74,7 +91,7 @@ public class ArrayVisuals : MonoBehaviour
                         false => Color.red,
                     };
                 }
-                styles.Add(style);
+                styleToCoord.Add(center, style);
                 Handles.Label(center, new GUIContent(myArray[x,y].ToString()), style);
                 Gizmos.DrawSphere(center, radius);
             }
