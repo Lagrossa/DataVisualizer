@@ -28,7 +28,7 @@ public class ArrayVisuals : MonoBehaviour
     public float closestPosMag;
     public Vector2 closestVec;
     public GameObject mouse;
-    public Vector2 testCurrVec;
+    
     // Sorts
     public bool binarySort;
     //      Bubble Sort
@@ -116,10 +116,21 @@ public class ArrayVisuals : MonoBehaviour
 
         //   Always check if the array is sorted. //
         isSorted = checkSorted();
-        GUIStyle value = styleToCoord[closestVec];
         Gizmos.color = Color.red;
+        Vector2[] keys = new Vector2[styleToCoord.Keys.Count];
+        styleToCoord.Keys.CopyTo(keys, 0);
+        Debug.Log(keys);
+        for (int x = 0; x < keys.Length; x++)
+        {
+            Vector2 currVec = keys[x];
+            Debug.Log($"Currvec {currVec}");
+            if ((currVec - (Vector2)mouse.transform.position).magnitude < closestPosMag)
+            {
+                closestPosMag = currVec.magnitude;
+                closestVec = currVec;
+            }
+        }
         Gizmos.DrawLine(closestVec, mouse.transform.position);
-        value.normal.textColor = Color.blue;
         UnityEditorInternal.InternalEditorUtility.RepaintAllViews(); // Repaint the view every frame.
         
     }
@@ -127,20 +138,6 @@ public class ArrayVisuals : MonoBehaviour
 
     void Update()
     {
-        Vector2[] keys = new Vector2[styleToCoord.Keys.Count];
-        styleToCoord.Keys.CopyTo(keys, 0);
-        for (int x = 0; x < keys.Length; x++)
-        {
-            Vector2 currVec = keys[x];
-            Debug.Log($"Currvec {currVec}");
-            testCurrVec = currVec;
-            if ((currVec - (Vector2)mouse.transform.position).magnitude < closestPosMag)
-            {
-                closestPosMag = currVec.magnitude;
-                closestVec = currVec;
-            }
-        }
-
         mousePos = Input.mousePosition;
     }
 
