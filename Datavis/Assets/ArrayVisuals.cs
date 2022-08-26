@@ -119,7 +119,7 @@ public class ArrayVisuals : MonoBehaviour
         Gizmos.color = Color.red;
         Vector2[] keys = new Vector2[styleToCoord.Keys.Count];
         styleToCoord.Keys.CopyTo(keys, 0);
-        Debug.Log(keys);
+        
         for (int x = 0; x < keys.Length; x++)
         {
             Vector2 currVec = keys[x];
