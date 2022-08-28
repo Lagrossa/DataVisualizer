@@ -174,8 +174,8 @@ MonoBehaviour:
   offsetY: 0.03
   isSorted: 1
   randomize: 0
-  indexr0: 24
-  indexr1: 14
+  indexr0: 49
+  indexr1: 49
   color: {r: 1, g: 0.47940266, b: 0.12941176, a: 1}
   setIndexColor: 1
   closestPosMag: 69.99651
@@ -185,8 +185,8 @@ MonoBehaviour:
   bubbleSort: 0
   bubbleFirstPass: 0
   bubbleStartTime: 63.9025
-  bubbleFinishTime: 78.56917
-  bubbleTimeElapsed: 14.666668
+  bubbleFinishTime: 363.23538
+  bubbleTimeElapsed: 299.3329
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
